@@ -1,28 +1,34 @@
 
 
 body {
-    padding-top: 4.5rem;
+    padding-top: 4rem;
     font-size:13px;
     font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;
     line-height:1.30769231;
   }
 
-nav {
+header nav {
   background-color: #fff;
+  width: 100%;
 }
 
-nav a {
+header nav a {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
+  transition: 0.3s;
 }
 
-nav img {
+header nav a:hover {
+    text-decoration: none;
+}
+
+header nav img {
     width: 36px;
     height: 36px;
 }
 
-header {
+section.hero {
     height: 556px;
     background-image: url('../img/header.png');
     background-repeat: no-repeat;
@@ -30,14 +36,15 @@ header {
     position: relative;
 }
 
-header div {
+section.hero div {
     position: absolute;
     top:50%;
     left:50%;
     transform: translateX(-50%) translateY(-50%);
 }
 
-header span {
+section.hero span {
+    display: block ruby;
     background-color: rgba(255,255,255,0.5);
     font-size: xx-large;
     padding: 0.5em;
