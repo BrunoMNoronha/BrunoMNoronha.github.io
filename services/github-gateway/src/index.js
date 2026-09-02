@@ -21,6 +21,7 @@ export default {
       if (url.pathname === '/api/assets' && request.method === 'GET') return listAssets(session, env, cors);
       if (url.pathname === '/api/assets' && request.method === 'POST') return uploadAsset(request, session, env, cors);
       if (url.pathname === '/api/workflow' && request.method === 'GET') return workflowStatus(session, env, cors);
+      if (url.pathname === '/api/changes' && request.method === 'GET') return recentChanges(session, env, cors);
       return json({ error: 'Rota não encontrada.' }, 404, cors);
     } catch (error) {
       const status = error.status || 500;
@@ -162,6 +163,21 @@ async function workflowStatus(session, env, cors) {
   const run = result.workflow_runs?.[0];
   const label = !run ? 'Sem publicação' : run.status !== 'completed' ? 'Em andamento' : run.conclusion === 'success' ? 'Concluída' : 'Com erro';
   return json({ label, status: run?.status || null, conclusion: run?.conclusion || null, url: run?.html_url || null }, 200, cors);
+}
+
+async function recentChanges(session, env, cors) {
+  const query = new URLSearchParams({ sha: env.GITHUB_BRANCH, path: contentPath, per_page: '5' });
+  const response = await github(`/repos/${env.GITHUB_REPOSITORY}/commits?${query}`, session.accessToken);
+  const result = await response.json();
+  if (!response.ok) throw githubError(response, result);
+  const changes = result.map((entry) => ({
+    sha: entry.sha.slice(0, 7),
+    message: String(entry.commit?.message || 'Alteração editorial').split('\n')[0].slice(0, 120),
+    author: entry.author?.login || entry.commit?.author?.name || 'GitHub',
+    committedAt: entry.commit?.author?.date || null,
+    url: entry.html_url,
+  }));
+  return json({ changes }, 200, cors);
 }
 
 function github(path, token, init = {}) {

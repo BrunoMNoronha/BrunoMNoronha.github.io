@@ -23,6 +23,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <article><span>Última publicação</span><strong class="workflow-state" data-workflow-state>Consultando</strong></article>
       </section>
 
+      <section class="recent-changes" aria-labelledby="recent-changes-title">
+        <div><p class="section-index">Histórico do GitHub</p><h2 id="recent-changes-title">Alterações recentes</h2></div>
+        <ol data-recent-changes><li>Carregando histórico…</li></ol>
+      </section>
+
       <section class="editor-layout">
         <aside class="editor-sidebar">
           <div class="sidebar-title"><h2>Conteúdo</h2><button class="icon-button" type="button" data-new title="Criar conteúdo" aria-label="Criar conteúdo">+</button></div>
@@ -87,6 +92,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   .metrics span { color: var(--muted); font-size: .78rem; font-weight: 700; }
   .metrics strong { font-family: var(--serif); font-size: 3rem; font-weight: 500; }
   .metrics .workflow-state { font-family: var(--sans); font-size: 1rem; }
+  .recent-changes { display: grid; grid-template-columns: minmax(180px, .35fr) 1fr; gap: 2rem; margin-bottom: 1rem; padding: 1.5rem; border: 1px solid var(--line); background: var(--surface); }
+  .recent-changes h2 { margin: 0; font-family: var(--sans); font-size: 1.25rem; font-weight: 800; }
+  .recent-changes ol { display: grid; gap: .75rem; margin: 0; padding: 0; list-style: none; }
+  .recent-changes li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .35rem 1rem; padding-bottom: .75rem; border-bottom: 1px solid var(--line); }
+  .recent-changes li:last-child { padding-bottom: 0; border-bottom: 0; }
+  .recent-changes a { color: var(--ink); font-weight: 800; text-decoration-thickness: 1px; text-underline-offset: .2rem; }
+  .recent-changes small { grid-column: 1 / -1; color: var(--muted); }
+  .recent-changes code { color: var(--muted); font-size: .75rem; }
   .editor-layout { display: grid; grid-template-columns: 240px minmax(420px, 1fr) minmax(300px, .7fr); min-height: 720px; border: 1px solid var(--line); background: var(--surface); }
   .editor-sidebar, .editor-form, .preview-pane { padding: 1.5rem; }
   .editor-sidebar, .editor-form { border-right: 1px solid var(--line); }
@@ -113,5 +126,5 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   .preview-summary { color: var(--muted); font-size: 1.1rem; }
   .preview-pane article div { margin-top: 2rem; font-family: var(--serif); }
   @media (max-width: 1100px) { .editor-layout { grid-template-columns: 220px 1fr; } .preview-pane { grid-column: 1 / -1; border-top: 1px solid var(--line); } .editor-form { border-right: 0; } }
-  @media (max-width: 760px) { .admin-shell { padding: 2rem 1rem; } .admin-heading, .setup-card, .login-card { display: flex; flex-direction: column; align-items: stretch; } .metrics { grid-template-columns: 1fr 1fr; } .metrics article:nth-child(2) { border-right: 1px solid var(--line); } .editor-layout { grid-template-columns: 1fr; } .editor-sidebar, .editor-form { border-right: 0; border-bottom: 1px solid var(--line); } .form-grid { grid-template-columns: 1fr; } .form-grid .wide { grid-column: auto; } .editor-toolbar { align-items: flex-start; flex-direction: column; } .toolbar-actions { justify-content: flex-start; } .inline-form { flex-direction: column; } }
+  @media (max-width: 760px) { .admin-shell { padding: 2rem 1rem; } .admin-heading, .setup-card, .login-card { display: flex; flex-direction: column; align-items: stretch; } .metrics { grid-template-columns: 1fr 1fr; } .metrics article:nth-child(2) { border-right: 1px solid var(--line); } .recent-changes { grid-template-columns: 1fr; } .recent-changes li { grid-template-columns: 1fr; } .recent-changes small { grid-column: auto; } .editor-layout { grid-template-columns: 1fr; } .editor-sidebar, .editor-form { border-right: 0; border-bottom: 1px solid var(--line); } .form-grid { grid-template-columns: 1fr; } .form-grid .wide { grid-column: auto; } .editor-toolbar { align-items: flex-start; flex-direction: column; } .toolbar-actions { justify-content: flex-start; } .inline-form { flex-direction: column; } }
 </style>

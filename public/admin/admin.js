@@ -123,6 +123,53 @@
     renderEditor();
   }
 
+  function renderRecentChanges(changes) {
+    const list = $('[data-recent-changes]');
+    list.textContent = '';
+    if (!changes.length) {
+      const empty = document.createElement('li');
+      empty.textContent = 'Nenhuma alteração editorial registrada.';
+      list.append(empty);
+      return;
+    }
+    const formatter = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium', timeStyle: 'short' });
+    for (const change of changes) {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = change.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = change.message;
+      const sha = document.createElement('code');
+      sha.textContent = change.sha;
+      const meta = document.createElement('small');
+      const committedAt = change.committedAt ? formatter.format(new Date(change.committedAt)) : 'data indisponível';
+      meta.textContent = `${change.author} · ${committedAt}`;
+      item.append(link, sha, meta);
+      list.append(item);
+    }
+  }
+
+  async function loadWorkflowStatus() {
+    try {
+      const workflow = await api('/api/workflow');
+      $('[data-workflow-state]').textContent = workflow.label;
+    } catch { $('[data-workflow-state]').textContent = 'Indisponível'; }
+  }
+
+  async function loadRecentChanges() {
+    try {
+      const result = await api('/api/changes');
+      renderRecentChanges(result.changes);
+    } catch {
+      const list = $('[data-recent-changes]');
+      list.textContent = '';
+      const item = document.createElement('li');
+      item.textContent = 'Histórico indisponível no momento.';
+      list.append(item);
+    }
+  }
+
   function renderEditor(preserveDirty = false) {
     const localeControl = $('[data-field="locale"]');
     const locale = localeControl.value;
@@ -309,6 +356,8 @@
       dirty = false;
       message.textContent = 'Alteração registrada no GitHub. A publicação foi iniciada.';
       renderDashboard();
+      loadRecentChanges();
+      loadWorkflowStatus();
     } catch (error) { message.textContent = error.message; }
   }
 
@@ -383,7 +432,8 @@
       assets = (await api('/api/assets')).assets;
       show('dashboard');
       renderDashboard();
-      api('/api/workflow').then((workflow) => { $('[data-workflow-state]').textContent = workflow.label; }).catch(() => { $('[data-workflow-state]').textContent = 'Indisponível'; });
+      loadWorkflowStatus();
+      loadRecentChanges();
     } catch (error) {
       sessionStorage.removeItem(sessionKey);
       session = '';

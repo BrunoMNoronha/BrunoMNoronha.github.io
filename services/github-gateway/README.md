@@ -9,6 +9,8 @@ Este Worker mantém as credenciais da GitHub App fora do navegador. Ele autentic
 3. Crie um namespace Workers KV para as sessões.
 4. Informe o ID do KV em `wrangler.jsonc` e revise login, origem, repositório e branch.
 5. Cadastre `GITHUB_CLIENT_ID` e `GITHUB_CLIENT_SECRET` como secrets do Worker; não os grave em arquivos versionados.
-6. Publique o Worker e informe o endereço gerado na tela de configuração do painel `/admin/`.
+6. Publique o Worker e configure o endereço gerado como padrão do painel `/admin/`.
+
+O gateway também expõe ao painel o estado da última publicação e os cinco commits editoriais mais recentes do arquivo de conteúdo.
 
 Para desenvolvimento local, copie `.dev.vars.example` para `.dev.vars`. Os dois arquivos reais estão ignorados pelo Git.
