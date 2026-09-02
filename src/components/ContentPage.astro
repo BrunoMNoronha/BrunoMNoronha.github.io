@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { formatDate, isPublished, type CollectionName, type ContentItem, type Locale } from '@/lib/content';
+
+interface Props { lang: Locale; collection: CollectionName; item: ContentItem }
+const { lang, collection, item } = Astro.props;
+const en = lang === 'en';
+const content = item.translations[lang];
+const currentPublished = isPublished(item, lang);
+const segments = {
+  projects: ['/projetos/', '/en/projects/'],
+  articles: ['/artigos/', '/en/articles/'],
+  posts: ['/posts/', '/en/posts/'],
+} as const;
+const [ptBase, enBase] = segments[collection];
+const currentPath = `${en ? enBase : ptBase}${item.slug}/`;
+const alternatePublished = isPublished(item, en ? 'pt-BR' : 'en');
+const alternatePath = alternatePublished ? `${en ? ptBase : enBase}${item.slug}/` : (en ? '/' : '/en/');
+const labels = en ? { back: 'Back', published: 'Published', tech: 'Technologies', links: 'Links' } : { back: 'Voltar', published: 'Publicado em', tech: 'Tecnologias', links: 'Links' };
+const unavailable = en
+  ? { title: 'Translation unavailable', description: 'This content has not been published in English yet.', action: 'Read in Portuguese' }
+  : { title: 'Tradução indisponível', description: 'Este conteúdo ainda não foi publicado em português.', action: 'Ler em inglês' };
+---
+<BaseLayout lang={lang} title={`${currentPublished ? content.title : unavailable.title} — Bruno Menezes`} description={currentPublished ? content.summary : unavailable.description} canonicalPath={currentPath} alternatePath={alternatePath} socialImage={currentPublished ? item.cover : null}>
+  {currentPublished ? <article class="article section-shell">
+    <a class="back-link" href={en ? enBase : ptBase}>← {labels.back}</a>
+    <header><p class="eyebrow">{labels.published} {formatDate(content.publishedAt!, lang)}</p><h1>{content.title}</h1><p class="lede">{content.summary}</p>{item.cover && <img class="article-cover" src={item.cover} alt={content.coverAlt} width="1180" height="664" />}</header>
+    <div class="article-grid">
+      <div class="article-body">{content.body.map((paragraph) => <p>{paragraph}</p>)}</div>
+      <aside>
+        {(item.technologies?.length ?? 0) > 0 && <div><h2>{labels.tech}</h2><div class="tags">{item.technologies!.map((tag) => <span>{tag}</span>)}</div></div>}
+        {(item.links?.length ?? 0) > 0 && <div><h2>{labels.links}</h2>{item.links!.map((link) => <a href={link.url} rel="noreferrer">{link.label} ↗</a>)}</div>}
+      </aside>
+    </div>
+  </article> : <section class="not-found section-shell"><p class="eyebrow">{en ? 'Language' : 'Idioma'}</p><h1>{unavailable.title}</h1><p>{unavailable.description}</p>{alternatePublished && <a class="button primary" href={alternatePath}>{unavailable.action} ↗</a>}</section>}
+</BaseLayout>

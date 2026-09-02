@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bruno-portfolio-github-gateway",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-02",
+  "vars": {
+    "ADMIN_LOGIN": "BrunoMNoronha",
+    "ALLOWED_ORIGIN": "https://brunomnoronha.github.io",
+    "GITHUB_REPOSITORY": "BrunoMNoronha/BrunoMNoronha.github.io",
+    "GITHUB_BRANCH": "master"
+  },
+  "kv_namespaces": [
+    // Substitua o valor abaixo pelo ID real antes da primeira publicação.
+    { "binding": "SESSIONS", "id": "00000000000000000000000000000000" }
+  ]
+}

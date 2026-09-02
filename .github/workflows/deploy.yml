@@ -1,0 +1,38 @@
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v6
+      - name: Testar, gerar e enviar artefato
+        uses: withastro/action@v6
+        with:
+          node-version: 24
+          build-cmd: npm test && npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Preservar a versão pública em caso de falha
+        id: deployment
+        uses: actions/deploy-pages@v5

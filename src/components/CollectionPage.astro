@@ -1,0 +1,33 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { formatDate, getPublished, type CollectionName, type Locale } from '@/lib/content';
+
+interface Props { lang: Locale; collection: CollectionName }
+const { lang, collection } = Astro.props;
+const en = lang === 'en';
+const names = {
+  projects: { 'pt-BR': ['Projetos', 'Trabalhos selecionados, construídos para resolver problemas reais.', '/projetos/', '/en/projects/'], en: ['Projects', 'Selected work built to solve real problems.', '/projetos/', '/en/projects/'] },
+  articles: { 'pt-BR': ['Artigos', 'Textos mais longos sobre tecnologia, produto e prática profissional.', '/artigos/', '/en/articles/'], en: ['Articles', 'Long-form writing about technology, product and professional practice.', '/artigos/', '/en/articles/'] },
+  posts: { 'pt-BR': ['Posts', 'Notas curtas, aprendizados e ideias em andamento.', '/posts/', '/en/posts/'], en: ['Posts', 'Short notes, learnings and ideas in progress.', '/posts/', '/en/posts/'] },
+} as const;
+const [title, description, ptPath, enPath] = names[collection][lang];
+const currentPath = en ? enPath : ptPath;
+const alternatePath = en ? ptPath : enPath;
+const items = getPublished(collection, lang);
+const detailBase = currentPath;
+---
+<BaseLayout lang={lang} title={`${title} — Bruno Menezes`} description={description} canonicalPath={currentPath} alternatePath={alternatePath}>
+  <section class="page-hero section-shell"><p class="eyebrow">Bruno Menezes</p><h1>{title}</h1><p>{description}</p></section>
+  <section class="listing section-shell" aria-label={title}>
+    {items.length ? items.map((item) => {
+      const content = item.translations[lang];
+      return <article class="content-card">
+        {item.cover && <img class="card-cover" src={item.cover} alt={content.coverAlt} loading="lazy" width="720" height="405" />}
+        <div class="card-meta"><span>{collection === 'projects' ? (en ? 'Project' : 'Projeto') : formatDate(content.publishedAt!, lang)}</span><span>↗</span></div>
+        <h2><a href={`${detailBase}${item.slug}/`}>{content.title}</a></h2>
+        <p>{content.summary}</p>
+        <div class="tags">{(item.technologies ?? item.tags ?? []).map((tag) => <span>{tag}</span>)}</div>
+      </article>;
+    }) : <div class="empty-state"><span aria-hidden="true">○</span><h2>{en ? 'Nothing published yet' : 'Nenhum conteúdo publicado'}</h2><p>{en ? 'Drafts remain private until they are ready.' : 'Os rascunhos permanecem privados até estarem prontos.'}</p></div>}
+  </section>
+</BaseLayout>

@@ -1,0 +1,116 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout lang="pt-BR" title="Painel editorial — Bruno Menezes" description="Painel privado de administração do portal profissional." alternatePath="/admin/" socialImage={null}>
+  <section class="admin-shell" data-admin-app>
+    <header class="admin-heading">
+      <div><p class="eyebrow">Área privada</p><h1>Painel editorial</h1></div>
+      <div class="session-area"><span class="session-state" data-session-state>Não conectado</span><button class="text-button" type="button" data-logout hidden>Sair</button></div>
+    </header>
+
+    <div class="setup-card" data-setup>
+      <div><p class="section-index">Configuração inicial</p><h2>Conecte o serviço seguro</h2><p>Informe o endereço público do gateway de autenticação. Nenhuma credencial do GitHub fica armazenada neste site.</p></div>
+      <form data-gateway-form><label for="gateway-url">Endereço do gateway</label><div class="inline-form"><input id="gateway-url" name="gateway" type="url" placeholder="https://seu-gateway.workers.dev" required /><button class="button primary" type="submit">Salvar e conectar</button></div></form>
+    </div>
+
+    <div data-login hidden class="login-card"><div><p class="section-index">Autenticação</p><h2>Entre com sua conta GitHub</h2><p>O acesso é limitado ao administrador configurado no gateway.</p></div><button class="button primary" type="button" data-login-button>Entrar com GitHub ↗</button></div>
+
+    <div data-dashboard hidden>
+      <section class="metrics" aria-label="Resumo editorial">
+        <article><span>Publicados</span><strong data-published-count>0</strong></article>
+        <article><span>Rascunhos</span><strong data-draft-count>0</strong></article>
+        <article><span>Traduções pendentes</span><strong data-translation-count>0</strong></article>
+        <article><span>Última publicação</span><strong class="workflow-state" data-workflow-state>Consultando</strong></article>
+      </section>
+
+      <section class="editor-layout">
+        <aside class="editor-sidebar">
+          <div class="sidebar-title"><h2>Conteúdo</h2><button class="icon-button" type="button" data-new title="Criar conteúdo" aria-label="Criar conteúdo">+</button></div>
+          <label for="content-type">Tipo</label>
+          <select id="content-type" data-content-type>
+            <optgroup label="Perfil e currículo"><option value="profile">Perfil</option><option value="links">Links profissionais</option><option value="experiences">Experiências</option><option value="education">Formação</option><option value="skills">Habilidades</option><option value="certifications">Certificações</option></optgroup>
+            <optgroup label="Publicações"><option value="projects">Projetos</option><option value="articles">Artigos</option><option value="posts">Posts</option></optgroup>
+          </select>
+          <div class="content-list" data-content-list></div>
+        </aside>
+
+        <form class="editor-form" data-editor-form>
+          <div class="editor-toolbar"><div><p class="section-index">Editor</p><h2 data-editor-title>Perfil</h2></div><div class="toolbar-actions"><button class="text-button danger" type="button" data-delete hidden>Excluir</button><button class="button secondary" type="button" data-preview-button>Atualizar preview</button><button class="button primary" type="submit">Salvar no GitHub</button></div></div>
+          <div class="form-grid">
+            <label>Idioma<select data-field="locale"><option value="pt-BR">Português (Brasil)</option><option value="en">English</option></select></label>
+            <label>Estado<select data-field="status"><option value="draft">Rascunho</option><option value="published">Publicado</option></select></label>
+            <label class="wide" data-slug-field>Slug<input data-field="slug" autocomplete="off" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" /></label>
+            <label class="wide">Título / chamada<input data-field="title" required /></label>
+            <label class="wide" data-name-field>Nome público<input data-field="displayName" /></label>
+            <label class="wide" data-location-field>Localização<input data-field="location" /></label>
+            <label class="wide" data-organization-field>Organização<input data-field="organization" /></label>
+            <label class="wide">Resumo<textarea data-field="summary" rows="3" required></textarea></label>
+            <label class="wide" data-body-field>Corpo <span data-body-help>Um parágrafo por bloco</span><textarea data-field="body" rows="10"></textarea></label>
+            <label data-date-field>Data de publicação<input data-field="publishedAt" type="date" /></label>
+            <label data-tags-field>Tecnologias ou tags<input data-field="tags" placeholder="Astro, TypeScript" /></label>
+            <label data-start-field>Início<input data-field="startDate" placeholder="AAAA-MM" pattern="\d{4}(?:-(?:0[1-9]|1[0-2]))?" /></label>
+            <label data-end-field>Fim <span>Deixe vazio para atual</span><input data-field="endDate" placeholder="AAAA-MM" pattern="\d{4}(?:-(?:0[1-9]|1[0-2]))?" /></label>
+            <label data-order-field>Ordem<input data-field="order" type="number" min="1" step="1" /></label>
+            <label class="wide" data-url-field>Endereço do link<input data-field="url" type="url" /></label>
+            <label class="wide" data-category-field>Categoria<input data-field="category" /></label>
+            <label class="wide" data-image-field>Imagem de capa<input data-image-input type="file" accept="image/png,image/jpeg,image/webp,image/avif" /><small data-image-status>Nenhuma imagem selecionada.</small></label>
+            <label class="wide" data-library-field>Selecionar imagem existente<select data-image-library><option value="">Nenhuma imagem</option></select></label>
+            <label class="wide" data-alt-field>Texto alternativo da imagem<input data-field="coverAlt" placeholder="Descreva o conteúdo relevante da imagem" /></label>
+          </div>
+          <p class="form-message" role="status" data-form-message></p>
+        </form>
+
+        <aside class="preview-pane" aria-label="Preview do conteúdo"><p class="section-index">Preview</p><article><span class="preview-status" data-preview-status>Rascunho</span><h2 data-preview-title>Título</h2><p class="preview-summary" data-preview-summary>Resumo do conteúdo.</p><div data-preview-body></div></article></aside>
+      </section>
+    </div>
+  </section>
+  <script is:inline src="/admin/admin.js"></script>
+</BaseLayout>
+
+<style>
+  .admin-shell { max-width: 1440px; margin: auto; padding: 3rem 2rem 6rem; }
+  .admin-heading { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 3rem; }
+  .admin-heading h1 { margin-bottom: 0; font-size: clamp(3rem, 6vw, 5rem); }
+  .session-area { display: flex; align-items: center; gap: 1rem; color: var(--muted); font-size: .85rem; }
+  .setup-card, .login-card { min-height: 310px; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 3rem; background: var(--surface); border: 1px solid var(--line); }
+  .setup-card h2, .login-card h2 { font-size: 2.5rem; }
+  label { display: grid; gap: .5rem; font-size: .75rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  input, textarea, select { width: 100%; border: 1px solid var(--line); background: #fff; color: var(--ink); padding: .85rem; font: inherit; font-size: .95rem; text-transform: none; letter-spacing: normal; }
+  textarea { resize: vertical; }
+  input:focus, textarea:focus, select:focus { outline: 3px solid rgb(31 111 120 / .22); border-color: var(--blue); }
+  .inline-form { display: flex; gap: .6rem; }
+  .inline-form input { min-width: 0; }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 1rem; }
+  .metrics article { min-height: 150px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; background: var(--surface); border: 1px solid var(--line); border-right: 0; }
+  .metrics article:last-child { border-right: 1px solid var(--line); }
+  .metrics span { color: var(--muted); font-size: .78rem; font-weight: 700; }
+  .metrics strong { font-family: var(--serif); font-size: 3rem; font-weight: 500; }
+  .metrics .workflow-state { font-family: var(--sans); font-size: 1rem; }
+  .editor-layout { display: grid; grid-template-columns: 240px minmax(420px, 1fr) minmax(300px, .7fr); min-height: 720px; border: 1px solid var(--line); background: var(--surface); }
+  .editor-sidebar, .editor-form, .preview-pane { padding: 1.5rem; }
+  .editor-sidebar, .editor-form { border-right: 1px solid var(--line); }
+  .sidebar-title, .editor-toolbar, .toolbar-actions { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+  .sidebar-title h2, .editor-toolbar h2 { margin: 0; font-family: var(--sans); font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; }
+  .icon-button, .text-button { border: 0; background: transparent; color: var(--ink); font: inherit; font-weight: 800; cursor: pointer; }
+  .icon-button { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border: 1px solid var(--line); font-size: 1.3rem; }
+  .text-button { text-decoration: underline; text-underline-offset: .2rem; }
+  .text-button.danger { color: #a53a28; }
+  .content-list { display: grid; gap: .4rem; margin-top: 1rem; }
+  .content-list button { width: 100%; padding: .8rem; border: 1px solid transparent; background: transparent; text-align: left; color: var(--ink); cursor: pointer; }
+  .content-list button:hover, .content-list button[aria-current="true"] { border-color: var(--line); background: #fff; }
+  .content-list small { display: block; margin-top: .2rem; color: var(--muted); }
+  .editor-toolbar { padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+  .toolbar-actions { flex-wrap: wrap; justify-content: end; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+  .form-grid .wide { grid-column: 1 / -1; }
+  .form-grid label > span, .form-grid small { color: var(--muted); font-weight: 500; letter-spacing: 0; text-transform: none; }
+  .form-message { min-height: 1.5rem; color: var(--blue); font-weight: 700; }
+  .preview-pane { background: #f0ece3; }
+  .preview-pane article { margin-top: 4rem; }
+  .preview-pane h2 { margin-top: 1rem; font-size: 2.6rem; }
+  .preview-status { color: var(--accent-dark); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .preview-summary { color: var(--muted); font-size: 1.1rem; }
+  .preview-pane article div { margin-top: 2rem; font-family: var(--serif); }
+  @media (max-width: 1100px) { .editor-layout { grid-template-columns: 220px 1fr; } .preview-pane { grid-column: 1 / -1; border-top: 1px solid var(--line); } .editor-form { border-right: 0; } }
+  @media (max-width: 760px) { .admin-shell { padding: 2rem 1rem; } .admin-heading, .setup-card, .login-card { display: flex; flex-direction: column; align-items: stretch; } .metrics { grid-template-columns: 1fr 1fr; } .metrics article:nth-child(2) { border-right: 1px solid var(--line); } .editor-layout { grid-template-columns: 1fr; } .editor-sidebar, .editor-form { border-right: 0; border-bottom: 1px solid var(--line); } .form-grid { grid-template-columns: 1fr; } .form-grid .wide { grid-column: auto; } .editor-toolbar { align-items: flex-start; flex-direction: column; } .toolbar-actions { justify-content: flex-start; } .inline-form { flex-direction: column; } }
+</style>

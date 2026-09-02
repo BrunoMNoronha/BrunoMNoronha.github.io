@@ -1,0 +1,38 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { site, type Locale } from '@/lib/content';
+
+interface Props { lang: Locale; page: 'about' | 'resume' }
+const { lang, page } = Astro.props;
+const en = lang === 'en';
+const paths = page === 'about' ? ['/sobre/', '/en/about/'] : ['/curriculo/', '/en/resume/'];
+const title = page === 'about' ? (en ? 'About' : 'Sobre') : (en ? 'Résumé' : 'Currículo');
+const intro = page === 'about' ? site.profile.translations[lang].bio : (en ? 'Professional experience, education, skills and certifications.' : 'Experiência profissional, formação, habilidades e certificações.');
+const empty = en ? 'No verified entries have been published yet.' : 'Nenhum registro verificado foi publicado ainda.';
+const labels = en
+  ? { experience: 'Experience', education: 'Education', skills: 'Skills', certifications: 'Certifications', present: 'Present', credential: 'View credential' }
+  : { experience: 'Experiência', education: 'Formação', skills: 'Habilidades', certifications: 'Certificações', present: 'Atual', credential: 'Ver credencial' };
+
+const published = (items: any[]) => items.filter((item) => item.translations?.[lang]?.status === 'published').sort((a, b) => a.order - b.order);
+const experiences = published(site.resume.experiences);
+const education = published(site.resume.education);
+const skills = published(site.resume.skills);
+const certifications = published(site.resume.certifications);
+const links = site.profile.links.filter((link: any) => link.status === 'published');
+
+function dateLabel(value: string | null | undefined): string {
+  if (!value) return labels.present;
+  if (/^\d{4}$/.test(value)) return value;
+  const [year, month] = value.split('-').map(Number);
+  return new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(year, month - 1, 1)));
+}
+---
+<BaseLayout lang={lang} title={`${title} — Bruno Menezes`} description={intro} canonicalPath={en ? paths[1] : paths[0]} alternatePath={en ? paths[0] : paths[1]}>
+  <section class="page-hero section-shell"><p class="eyebrow">{site.profile.name}{site.profile.translations[lang].location && ` · ${site.profile.translations[lang].location}`}</p><h1>{title}</h1><p>{intro}</p></section>
+  {page === 'about' ? <section class="prose-panel section-shell"><div>{site.profile.photo && <img class="about-photo" src={site.profile.photo} alt={site.profile.translations[lang].photoAlt} width="560" height="560" />}<h2>{site.profile.translations[lang].headline}</h2></div><div><p>{site.profile.translations[lang].bio}</p>{links.length > 0 && <div class="profile-links">{links.map((link: any) => <a href={link.url} rel="me noreferrer">{link.label} ↗</a>)}</div>}</div></section> : <section class="resume-content section-shell">
+    <section class="resume-group" aria-labelledby="experience-heading"><div class="resume-group-heading"><p class="section-index">01</p><h2 id="experience-heading">{labels.experience}</h2></div>{experiences.length ? <div class="timeline">{experiences.map((item) => { const content = item.translations[lang]; return <article><div class="period">{dateLabel(item.startDate)} — {dateLabel(item.endDate)}</div><div><p class="organization">{content.organization}</p><h3>{content.title}</h3>{content.summary && <p>{content.summary}</p>}{content.highlights?.length > 0 && <ul>{content.highlights.map((highlight: string) => <li>{highlight}</li>)}</ul>}</div></article>; })}</div> : <p class="resume-empty">{empty}</p>}</section>
+    <section class="resume-group" aria-labelledby="education-heading"><div class="resume-group-heading"><p class="section-index">02</p><h2 id="education-heading">{labels.education}</h2></div>{education.length ? <div class="timeline">{education.map((item) => { const content = item.translations[lang]; return <article><div class="period">{dateLabel(item.startDate)} — {dateLabel(item.endDate)}</div><div><p class="organization">{content.organization}</p><h3>{content.title}</h3>{content.summary && <p>{content.summary}</p>}</div></article>; })}</div> : <p class="resume-empty">{empty}</p>}</section>
+    <section class="resume-group" aria-labelledby="skills-heading"><div class="resume-group-heading"><p class="section-index">03</p><h2 id="skills-heading">{labels.skills}</h2></div>{skills.length ? <div class="skill-grid">{skills.map((item) => <span>{item.translations[lang].name}</span>)}</div> : <p class="resume-empty">{empty}</p>}</section>
+    <section class="resume-group" aria-labelledby="certifications-heading"><div class="resume-group-heading"><p class="section-index">04</p><h2 id="certifications-heading">{labels.certifications}</h2></div>{certifications.length ? <div class="certification-list">{certifications.map((item) => { const content = item.translations[lang]; return <article><div><p class="organization">{content.organization}</p><h3>{content.title}</h3>{content.summary && <p>{content.summary}</p>}</div>{item.credentialUrl && <a href={item.credentialUrl} rel="noreferrer">{labels.credential} ↗</a>}</article>; })}</div> : <p class="resume-empty">{empty}</p>}</section>
+  </section>}
+</BaseLayout>

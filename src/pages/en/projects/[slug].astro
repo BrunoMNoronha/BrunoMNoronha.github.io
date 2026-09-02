@@ -1,0 +1,7 @@
+---
+import ContentPage from '@/components/ContentPage.astro';
+import { getRoutable, type ContentItem } from '@/lib/content';
+export function getStaticPaths() { return getRoutable('projects').map((item) => ({ params: { slug: item.slug }, props: { item } })); }
+const { item } = Astro.props as { item: ContentItem };
+---
+<ContentPage lang="en" collection="projects" item={item} />

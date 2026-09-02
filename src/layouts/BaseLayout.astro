@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import { site } from '@/lib/content';
+
+interface Props {
+  lang: 'pt-BR' | 'en';
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  alternatePath: string;
+  socialImage?: string | null;
+}
+
+const { lang, title, description, canonicalPath = Astro.url.pathname, alternatePath, socialImage = '/og.png' } = Astro.props;
+const isEnglish = lang === 'en';
+const canonical = new URL(canonicalPath, Astro.site);
+const alternate = new URL(alternatePath, Astro.site);
+const socialImageUrl = socialImage ? new URL(socialImage, Astro.site) : null;
+const nav = isEnglish
+  ? [
+      ['Profile', '/en/about/'],
+      ['Experience', '/en/resume/'],
+      ['Work', '/en/projects/'],
+      ['Writing', '/en/articles/'],
+      ['Contact', '/en/#contato'],
+    ]
+  : [
+      ['Perfil', '/sobre/'],
+      ['Experiência', '/curriculo/'],
+      ['Projetos', '/projetos/'],
+      ['Conteúdo', '/artigos/'],
+      ['Contato', '/#contato'],
+    ];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#102a43" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={isEnglish ? 'pt-BR' : 'en'} href={alternate} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={isEnglish ? 'en_US' : 'pt_BR'} />
+    {socialImageUrl && <meta property="og:image" content={socialImageUrl} />}
+    {socialImageUrl && <meta property="og:image:alt" content="Bruno Menezes — Software · Projetos · Conteúdo" />}
+    <meta name="twitter:card" content={socialImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo-principal">{isEnglish ? 'Skip to content' : 'Pular para o conteúdo'}</a>
+    <header class="site-header">
+      <a class="brand" href={isEnglish ? '/en/' : '/'} aria-label={isEnglish ? 'Bruno Menezes — home' : 'Bruno Menezes — início'}>
+        <span class="brand-mark" aria-hidden="true">BM</span>
+        <span>{site.profile.name}</span>
+      </a>
+      <nav aria-label={isEnglish ? 'Main navigation' : 'Navegação principal'}>
+        {nav.map(([label, href]) => <a href={href}>{label}</a>)}
+      </nav>
+      <a class="language-switch" href={alternatePath} lang={isEnglish ? 'pt-BR' : 'en'} hreflang={isEnglish ? 'pt-BR' : 'en'}>
+        {isEnglish ? 'PT' : 'EN'} <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+    <main id="conteudo-principal"><slot /></main>
+    <footer class="site-footer">
+      <p>© {new Date().getFullYear()} Bruno Menezes</p>
+      <p>{isEnglish ? 'Built as an open, versioned professional presence.' : 'Uma presença profissional aberta e versionada.'}</p>
+    </footer>
+  </body>
+</html>

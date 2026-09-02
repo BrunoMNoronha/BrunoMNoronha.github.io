@@ -1,0 +1,85 @@
+---
+import { getPublished, site } from '@/lib/content';
+interface Props { lang: 'pt-BR' | 'en' }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const projects = getPublished('projects', lang);
+const professionalLinks = site.profile.links.filter((link: any) => link.status === 'published');
+const copy = en ? {
+  eyebrow: `Software development${site.profile.translations.en.location ? ` · ${site.profile.translations.en.location}` : ''}`,
+  intro: 'I turn complex systems into clear, reliable digital experiences.',
+  note: 'This professional profile is being rebuilt. Career details are under review before publication.',
+  cta: 'Explore the structure',
+  contact: 'Get in touch',
+  stats: [['Bilingual', 'PT-BR & English'], ['Versioned', 'Content in Git'], ['Accessible', 'By design']],
+  profileTitle: 'A portal made to evolve',
+  profileBody: 'Experience, skills, projects and writing now share one coherent, maintainable home. New material is published only after review.',
+  experienceTitle: 'Career',
+  review: 'Professional history in review',
+  reviewBody: 'The legacy résumé has been preserved as migration material. Dates, roles and descriptions will appear here after confirmation.',
+  projectsTitle: 'Selected work',
+  projectsEmpty: 'Projects are being prepared for publication.',
+  writingTitle: 'Notes & articles',
+  writingEmpty: 'The first publications are in draft.',
+  contactTitle: 'Let’s build something useful.',
+  contactBody: 'Verified professional links and contact channels will be published here.',
+} : {
+  eyebrow: `Desenvolvimento de software${site.profile.translations['pt-BR'].location ? ` · ${site.profile.translations['pt-BR'].location}` : ''}`,
+  intro: 'Transformo sistemas complexos em experiências digitais claras e confiáveis.',
+  note: 'Este perfil profissional está sendo reconstruído. Os dados de carreira passam por revisão antes da publicação.',
+  cta: 'Conheça a estrutura',
+  contact: 'Entre em contato',
+  stats: [['Bilíngue', 'PT-BR e inglês'], ['Versionado', 'Conteúdo no Git'], ['Acessível', 'Desde a origem']],
+  profileTitle: 'Um portal feito para evoluir',
+  profileBody: 'Experiência, competências, projetos e publicações passam a compartilhar uma base coerente e sustentável. Novos dados só são publicados após revisão.',
+  experienceTitle: 'Trajetória',
+  review: 'Histórico profissional em revisão',
+  reviewBody: 'O currículo legado foi preservado como material de migração. Datas, cargos e descrições aparecerão aqui depois da confirmação.',
+  projectsTitle: 'Projetos selecionados',
+  projectsEmpty: 'Os projetos estão sendo preparados para publicação.',
+  writingTitle: 'Notas e artigos',
+  writingEmpty: 'As primeiras publicações estão em rascunho.',
+  contactTitle: 'Vamos construir algo útil.',
+  contactBody: 'Links profissionais e canais de contato verificados serão publicados aqui.',
+};
+---
+
+<section class="hero" id="perfil">
+  <div class="hero-copy">
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h1>{copy.intro}</h1>
+    <p class="hero-note">{copy.note}</p>
+    <div class="hero-actions">
+      <a class="button primary" href="#experiencia">{copy.cta} <span aria-hidden="true">↓</span></a>
+      <a class="button secondary" href="#contato">{copy.contact}</a>
+    </div>
+  </div>
+  <div class="hero-card" aria-label={en ? 'Portal principles' : 'Princípios do portal'}>
+    {site.profile.photo ? <img class="profile-photo" src={site.profile.photo} alt={site.profile.translations[lang].photoAlt} width="520" height="520" /> : <div class="monogram" aria-hidden="true"><span>B</span><span>M</span></div>}
+    <div class="hero-card-grid">
+      {copy.stats.map(([label, value]) => <div><strong>{label}</strong><span>{value}</span></div>)}
+    </div>
+  </div>
+</section>
+
+<section class="statement section-shell" aria-labelledby="profile-title">
+  <p class="section-index">01</p>
+  <div><h2 id="profile-title">{copy.profileTitle}</h2><p>{copy.profileBody}</p></div>
+</section>
+
+<section class="content-section section-shell" id="experiencia" aria-labelledby="experience-title">
+  <div class="section-heading"><p class="section-index">02</p><h2 id="experience-title">{copy.experienceTitle}</h2></div>
+  <article class="review-card"><span class="status-dot" aria-hidden="true"></span><div><h3>{copy.review}</h3><p>{copy.reviewBody}</p></div></article>
+</section>
+
+<section class="split-section section-shell" id="projetos">
+  <article><p class="section-index">03</p><h2>{copy.projectsTitle}</h2>{projects.length ? <><h3 class="featured-link"><a href={`${en ? '/en/projects/' : '/projetos/'}${projects[0].slug}/`}>{projects[0].translations[lang].title} ↗</a></h3><p>{projects[0].translations[lang].summary}</p></> : <p>{copy.projectsEmpty}</p>}<span class="empty-line"></span></article>
+  <article id="conteudo"><p class="section-index">04</p><h2>{copy.writingTitle}</h2><p>{copy.writingEmpty}</p><span class="empty-line"></span></article>
+</section>
+
+<section class="contact-section" id="contato">
+  <p class="eyebrow">{en ? 'Contact' : 'Contato'}</p>
+  <h2>{copy.contactTitle}</h2>
+  <p>{copy.contactBody}</p>
+  {professionalLinks.length > 0 && <div class="contact-links">{professionalLinks.map((link: any) => <a href={link.url} rel="me noreferrer">{link.label} ↗</a>)}</div>}
+</section>

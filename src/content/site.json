@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "profile": {
+    "name": "Bruno Menezes",
+    "photo": null,
+    "links": [],
+    "translations": {
+      "pt-BR": {
+        "headline": "Desenvolvimento de software com clareza e propósito.",
+        "location": "Brasília, Brasil",
+        "bio": "Perfil profissional em revisão. Experiências, formação, certificações e canais de contato só serão publicados depois de confirmados.",
+        "photoAlt": "",
+        "status": "published"
+      },
+      "en": {
+        "headline": "Software development with clarity and purpose.",
+        "location": "Brasília, Brazil",
+        "bio": "Professional profile under review. Experience, education, certifications and contact channels will only be published after confirmation.",
+        "photoAlt": "",
+        "status": "published"
+      }
+    }
+  },
+  "resume": {
+    "migrationNotes": [
+      "Dados importados do site legado em 2026-09-02. Todos permanecem como rascunho até validação do proprietário.",
+      "A terceira certificação do HTML legado estava truncada e não foi importada."
+    ],
+    "experiences": [
+      {
+        "id": "experience-certsys-2024",
+        "order": 1,
+        "startDate": "2024-03",
+        "endDate": null,
+        "translations": {
+          "pt-BR": { "title": "Analista de Desenvolvimento de Sistemas", "organization": "Certsys", "summary": "Desenvolvimento de aplicações web.", "highlights": ["OutSystems Traditional Web Apps e Reactive Web Apps", "BDDFramework", "AI Mentor Studio", "HTML, CSS e JavaScript", "Java", "Oracle SQL", "Elasticsearch"], "status": "draft" },
+          "en": { "title": "", "organization": "Certsys", "summary": "", "highlights": [], "status": "draft" }
+        }
+      },
+      {
+        "id": "experience-phl-ti-2021",
+        "order": 2,
+        "startDate": "2021-08",
+        "endDate": "2024-02",
+        "translations": {
+          "pt-BR": { "title": "Programador de Sistemas de Informação", "organization": "PHL TI", "summary": "Desenvolvimento de aplicações web.", "highlights": ["OutSystems Traditional Web Apps e Reactive Web Apps", "HTML, CSS e JavaScript", "Java e Spring Boot", "Angular e PrimeNG", "Microsoft SQL Server, Oracle SQL e MySQL", "Git, Docker e Jaspersoft Studio", "WordPress", "APIs do Senado Federal, Câmara dos Deputados e Getnet"], "status": "draft" },
+          "en": { "title": "", "organization": "PHL TI", "summary": "", "highlights": [], "status": "draft" }
+        }
+      },
+      {
+        "id": "experience-up-solution-2020",
+        "order": 3,
+        "startDate": "2020-06",
+        "endDate": "2021-07",
+        "translations": {
+          "pt-BR": { "title": "Técnico em Manutenção de Equipamentos de Informática", "organization": "UP Solution", "summary": "Instalação, configuração, manutenção e gerenciamento de ativos de rede.", "highlights": ["Roteadores domésticos", "pfSense", "MikroTik"], "status": "draft" },
+          "en": { "title": "", "organization": "UP Solution", "summary": "", "highlights": [], "status": "draft" }
+        }
+      },
+      {
+        "id": "experience-lightbase-2014",
+        "order": 4,
+        "startDate": "2014-03",
+        "endDate": "2015-06",
+        "translations": {
+          "pt-BR": { "title": "Técnico de Comunicação de Dados", "organization": "LightBase Consultoria em Software Público", "summary": "Desenvolvimento e sustentação do Software Público CACIC.", "highlights": ["CentOS e Debian", "PHP 5 com Symfony", "PostgreSQL 9.3", "Apache 2", "MySQL"], "status": "draft" },
+          "en": { "title": "", "organization": "LightBase Consultoria em Software Público", "summary": "", "highlights": [], "status": "draft" }
+        }
+      },
+      {
+        "id": "experience-central-it-2011",
+        "order": 5,
+        "startDate": "2011-11",
+        "endDate": "2011-12",
+        "translations": {
+          "pt-BR": { "title": "Analista de Desenvolvimento de Sistemas", "organization": "Central IT — Governança Corporativa", "summary": "Migração e integração de sistemas, controle de acesso, instalação e versionamento.", "highlights": ["Sistemas internos do IBAMA em PHP e FormDin", "Portal do IBAMA com Joomla e WordPress", "Testes automatizados com Selenium"], "status": "draft" },
+          "en": { "title": "", "organization": "Central IT", "summary": "", "highlights": [], "status": "draft" }
+        }
+      },
+      {
+        "id": "experience-capgemini-2010",
+        "order": 6,
+        "startDate": "2010-05",
+        "endDate": "2011-10",
+        "translations": {
+          "pt-BR": { "title": "Programador de Internet", "organization": "Capgemini", "summary": "Migração e integração de sistemas, controle de acesso, instalação e versionamento.", "highlights": ["Sistemas internos do IBAMA em PHP e FormDin", "Portal do IBAMA com Joomla e WordPress", "Testes automatizados com Selenium"], "status": "draft" },
+          "en": { "title": "", "organization": "Capgemini", "summary": "", "highlights": [], "status": "draft" }
+        }
+      },
+      {
+        "id": "experience-unb-2008",
+        "order": 7,
+        "startDate": "2008-02",
+        "endDate": "2010-01",
+        "translations": {
+          "pt-BR": { "title": "Trainee", "organization": "Universidade de Brasília", "summary": "Serviço de Apoio Técnico — SAT.", "highlights": [], "status": "draft" },
+          "en": { "title": "", "organization": "University of Brasília", "summary": "", "highlights": [], "status": "draft" }
+        }
+      }
+    ],
+    "education": [
+      {
+        "id": "education-estacio-2022",
+        "order": 1,
+        "startDate": "2020",
+        "endDate": "2022-06",
+        "translations": {
+          "pt-BR": { "title": "Análise e Desenvolvimento de Sistemas", "organization": "Estácio", "summary": "Graduação.", "highlights": [], "status": "draft" },
+          "en": { "title": "", "organization": "Estácio", "summary": "", "highlights": [], "status": "draft" }
+        }
+      }
+    ],
+    "skills": [
+      { "id": "skill-legacy-1", "order": 1, "category": "Legado", "translations": { "pt-BR": { "name": "OutSystems", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-2", "order": 2, "category": "Legado", "translations": { "pt-BR": { "name": "Administração de redes", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-3", "order": 3, "category": "Legado", "translations": { "pt-BR": { "name": "Comunicação", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-4", "order": 4, "category": "Legado", "translations": { "pt-BR": { "name": "HTML", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-5", "order": 5, "category": "Legado", "translations": { "pt-BR": { "name": "CSS", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-6", "order": 6, "category": "Legado", "translations": { "pt-BR": { "name": "JavaScript", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-7", "order": 7, "category": "Legado", "translations": { "pt-BR": { "name": "Java", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-8", "order": 8, "category": "Legado", "translations": { "pt-BR": { "name": "Spring Boot", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-9", "order": 9, "category": "Legado", "translations": { "pt-BR": { "name": "React", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-10", "order": 10, "category": "Legado", "translations": { "pt-BR": { "name": "Node.js", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-11", "order": 11, "category": "Legado", "translations": { "pt-BR": { "name": "Git", "status": "draft" }, "en": { "name": "", "status": "draft" } } },
+      { "id": "skill-legacy-12", "order": 12, "category": "Legado", "translations": { "pt-BR": { "name": "SQL", "status": "draft" }, "en": { "name": "", "status": "draft" } } }
+    ],
+    "certifications": [
+      {
+        "id": "certification-information-architecture",
+        "order": 1,
+        "credentialUrl": null,
+        "translations": {
+          "pt-BR": { "title": "Arquitetura da informação e projeto de sistemas", "organization": "", "summary": "", "highlights": [], "status": "draft" },
+          "en": { "title": "", "organization": "", "summary": "", "highlights": [], "status": "draft" }
+        }
+      },
+      {
+        "id": "certification-java-spring-boot",
+        "order": 2,
+        "credentialUrl": null,
+        "translations": {
+          "pt-BR": { "title": "Formação Java e Spring Boot", "organization": "", "summary": "", "highlights": [], "status": "draft" },
+          "en": { "title": "", "organization": "", "summary": "", "highlights": [], "status": "draft" }
+        }
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "professional-portal",
+      "slug": "portal-profissional",
+      "featured": true,
+      "cover": null,
+      "technologies": ["Astro", "TypeScript", "GitHub Pages"],
+      "links": [{ "label": "GitHub", "url": "https://github.com/BrunoMNoronha/BrunoMNoronha.github.io" }],
+      "translations": {
+        "pt-BR": {
+          "title": "Portal profissional bilíngue",
+          "summary": "Reconstrução deste espaço como currículo, portfólio e plataforma de conteúdo versionada.",
+          "coverAlt": "",
+          "body": [
+            "O portal reúne perfil, trajetória, projetos e publicações em português e inglês.",
+            "O conteúdo é estruturado em arquivos, passa por validação antes do build e permanece versionado no GitHub."
+          ],
+          "status": "published",
+          "publishedAt": "2026-09-02"
+        },
+        "en": {
+          "title": "Bilingual professional portal",
+          "summary": "Rebuilding this space as a versioned résumé, portfolio and publishing platform.",
+          "coverAlt": "",
+          "body": [
+            "The portal brings together profile, career, projects and writing in Portuguese and English.",
+            "Content is stored in structured files, validated before each build and versioned on GitHub."
+          ],
+          "status": "published",
+          "publishedAt": "2026-09-02"
+        }
+      }
+    }
+  ],
+  "articles": [
+    {
+      "id": "first-article",
+      "slug": "primeiro-artigo",
+      "featured": false,
+      "cover": null,
+      "tags": [],
+      "translations": {
+        "pt-BR": { "title": "Primeiro artigo", "summary": "Conteúdo em preparação.", "coverAlt": "", "body": [], "status": "draft", "publishedAt": null },
+        "en": { "title": "First article", "summary": "Content in preparation.", "coverAlt": "", "body": [], "status": "draft", "publishedAt": null }
+      }
+    }
+  ],
+  "posts": [
+    {
+      "id": "first-post",
+      "slug": "primeiro-post",
+      "featured": false,
+      "cover": null,
+      "tags": [],
+      "translations": {
+        "pt-BR": { "title": "Primeiro post", "summary": "Conteúdo em preparação.", "coverAlt": "", "body": [], "status": "draft", "publishedAt": null },
+        "en": { "title": "First post", "summary": "Content in preparation.", "coverAlt": "", "body": [], "status": "draft", "publishedAt": null }
+      }
+    }
+  ]
+}
