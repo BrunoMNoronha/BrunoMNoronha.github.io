@@ -10,7 +10,6 @@
     "GITHUB_BRANCH": "master"
   },
   "kv_namespaces": [
-    // Substitua o valor abaixo pelo ID real antes da primeira publicação.
-    { "binding": "SESSIONS", "id": "00000000000000000000000000000000" }
+    { "binding": "SESSIONS", "id": "f982f80811084b32b98feb2626dd43f7" }
   ]
 }

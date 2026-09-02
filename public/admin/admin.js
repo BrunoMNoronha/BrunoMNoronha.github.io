@@ -8,7 +8,7 @@
   const contentPath = 'src/content/site.json';
   const editorialTypes = new Set(['projects', 'articles', 'posts']);
   const resumeTypes = new Set(['experiences', 'education', 'skills', 'certifications']);
-  let gateway = localStorage.getItem(gatewayKey) || '';
+  let gateway = localStorage.getItem(gatewayKey) || 'https://bruno-portfolio-github-gateway.bruno-portal-github-gateway.workers.dev';
   let session = sessionStorage.getItem(sessionKey) || '';
   let data = null;
   let sha = '';
