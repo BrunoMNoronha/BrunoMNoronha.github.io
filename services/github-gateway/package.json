@@ -8,6 +8,6 @@
     "deploy": "wrangler deploy src/index.js"
   },
   "devDependencies": {
-    "wrangler": "^4.128.0"
+    "wrangler": "^4.131.0"
   }
 }
